@@ -10,7 +10,8 @@ app.get("/musician", async (req, res) => {
     const musician = await Musician.findAll();
     res.json(list);
 })
-app.listen(port, () => {
+app.listen(port, async () => {
+    await
     sequelize.sync();
     console.log(`Listening on port ${port}`)
 })
