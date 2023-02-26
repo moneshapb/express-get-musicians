@@ -1,20 +1,16 @@
 const express = require("express");
 const app = express();
-const {Musician} = require("./Musician")
-const {sequelize} = require("./db")
+const { Musician } = require("./Musician");
+const { sequelize } = require("./db");
+const { response } = require("express");
 
 const port = 3000;
+app.use(express.json());
+const musicianRouter = require("./routers/musicrouter");
 
-//TODO
-app.get('/musicians/:id', async (req, res) => {
-    const musician = await Musician.findByPk(req.params.id);
-    res.json({musician});
-    }) 
+app.use("/musicians", musicianRouter);
 
-
-
-app.listen(port, async () => {
-    await
-    sequelize.sync();
-    console.log(`Listening on port ${port}`)
-})
+app.listen(port, () => {
+  sequelize.sync();
+  console.log(`Listening on port ${port}`);
+});
